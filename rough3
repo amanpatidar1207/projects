@@ -1,0 +1,58 @@
+def expense_tracker():
+    # खर्चों को स्टोर करने के लिए खाली लिस्ट
+    expenses = []
+    
+    print("=== Welcome to Python Expense Tracker ===")
+    
+    while True:
+        print("\n1. Add Expense")
+        print("2. View All Expenses")
+        print("3. Show Total Spending")
+        print("4. Exit")
+        
+        choice = input("\nChoose an option (1-4): ")
+        
+        # 1. खर्च जोड़ना
+        if choice == '1':
+            item = input("Enter item/description (e.g., Pizza, Books): ").strip()
+            try:
+                amount = float(input(f"Enter amount spent on '{item}': "))
+                category = input("Enter category (e.g., Food, Travel, Education): ").strip()
+                
+                # डिक्शनरी बनाकर लिस्ट में सेव करना
+                expense_entry = {"item": item, "amount": amount, "category": category}
+                expenses.append(expense_entry)
+                print(f"💰 Added: {item} - ₹{amount} under {category}")
+            except ValueError:
+                print("Invalid amount! Please enter a valid number.")
+                
+        # 2. सारे खर्चे देखना
+        elif choice == '2':
+            if not expenses:
+                print("\nNo expenses recorded yet!")
+            else:
+                print("\n--- All Recorded Expenses ---")
+                for index, exp in enumerate(expenses, 1):
+                    print(f"{index}. {exp['item']} | Amount: ₹{exp['amount']} | Category: {exp['category']}")
+                    
+        # 3. कुल खर्च का हिसाब
+        elif choice == '3':
+            if not expenses:
+                print("\nTotal Spending: ₹0")
+            else:
+                # लिस्ट के सभी amounts को जोड़ना
+                total = sum(exp['amount'] for exp in expenses)
+                print(f"\n📊 Total Money Spent So Far: ₹{total}")
+                
+        # 4. बाहर निकलना
+        elif choice == '4':
+            print("\nExiting Expense Tracker. Control your spending, save more! 🚀")
+            break
+            
+        else:
+            print("Invalid choice! Please select between 1 and 4.")
+
+if __name__ == "__main__":
+    expense_tracker()
+
+    
